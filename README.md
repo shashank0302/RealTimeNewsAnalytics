@@ -1,2 +1,2 @@
 # RealTimeNewsAnalytics
-A FullStack Application of RealTIme Application.
+A FullStack Application of RealTIme Data.
