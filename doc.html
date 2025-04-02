@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media Analytics Architecture</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        .architecture-section {
+            margin: 2rem 0;
+            padding: 1rem;
+            border: 1px solid #eee;
+            border-radius: 8px;
+        }
+        .diagram-container {
+            margin: 2rem 0;
+        }
+        .mermaid {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="architecture-section">
+        <h2>Data Ingestion Architecture</h2>
+        <div class="diagram-container">
+            <pre class="mermaid">
+                graph TD
+                A[Twitter API] --> B[API Gateway]
+                D[Reddit API] --> B
+                B --> E[Raw Data Queue]
+                E --> F[Preprocessing]
+                F --> G[(Processed Data<br/>PostgreSQL)]
+            </pre>
+        </div>
+    </div>
+
+    <div class="architecture-section">
+        <h2>Processing Pipeline</h2>
+        <div class="diagram-container">
+            <pre class="mermaid">
+                graph TD
+                A[Data Ingestion] --> B[Sentiment Analysis]
+                B --> C[Trend Prediction]
+                C --> D[Visualization API]
+                D --> E[(TimescaleDB)]
+                E --> F[React Dashboard]
+            </pre>
+        </div>
+    </div>
+
+    <div class="architecture-section">
+        <h2>Deployment Architecture</h2>
+        <div class="diagram-container">
+            <pre class="mermaid">
+                graph TD
+                A[User] --> B[Cloudflare CDN]
+                B --> C[EC2 Auto-Scaling Group]
+                C --> D[Redis Cache]
+                D --> E[PostgreSQL RDS]
+                E --> F[S3 Storage]
+                C --> G[Prometheus Monitoring]
+            </pre>
+        </div>
+    </div>
+
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'strict'
+        });
+    </script>
+</body>
+</html>
