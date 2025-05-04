@@ -1,7 +1,7 @@
 # api/urls.py
 from django.urls import path
-from .views import test_endpoint
+from . import views
 
 urlpatterns = [
-    path('test/', test_endpoint, name='test_endpoint'),
+    path('news/country/', views.country_news, name='country_news'),
 ]

@@ -8,10 +8,9 @@ class RawData(models.Model):
     content = models.TextField(null=True, blank=True)
     category = models.CharField(max_length=50)
     country = models.CharField(max_length=50)
-    sentiment_score = models.FloatField(null=True, blank=True)
     published_date = models.DateTimeField(null=True, blank=True)
     source = models.CharField(max_length=100, null=True, blank=True)
-    link = models.URLField(null=True, blank=True, unique=True,max_length=500)
+    link = models.URLField(null=True, blank=True, unique=True, max_length=2000)  
     created_at = models.DateTimeField(auto_now_add=True)
     raw_response = models.JSONField(null=True, blank=True)
 
@@ -28,7 +27,7 @@ class ProcessedData(models.Model):
     sentiment_score = models.FloatField(null=True, blank=True)
     published_date = models.DateTimeField(null=True, blank=True, db_index=True)
     source = models.CharField(max_length=100, null=True, blank=True)
-    link = models.URLField(null=True, blank=True, unique=True)
+    link = models.URLField(null=True, blank=True, unique=True, max_length=2000)
     created_at = models.DateTimeField(auto_now_add=True)
     raw_response = models.JSONField(null=True, blank=True)  # Store raw API response if needed
 

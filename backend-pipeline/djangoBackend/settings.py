@@ -152,14 +152,13 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': os.path.join(BASE_DIR, 'debug.log'),
+            'filename': 'news.log',
+            'encoding': 'utf-8',
         },
     },
     'loggers': {
-        'django': {
-            'handlers': ['file'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
+        'django': {'handlers': ['file'], 'level': 'INFO'},
+        'api': {'handlers': ['file'], 'level': 'DEBUG'},
     },
 }
+

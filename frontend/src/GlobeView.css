@@ -1,0 +1,20 @@
+/* src/GlobeView.css */
+body, html {
+  margin:0; padding:0; overflow:hidden;
+  background: #001d3d;
+  color: #eee;
+  font-family: sans-serif;
+}
+.globe-container {
+  position: relative;
+  width: 100vw; height: 100vh;
+}
+.info-box {
+  position: absolute; top:20px; right:20px;
+  background: rgba(0,0,0,0.7);
+  padding:1rem; border-radius:8px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.5);
+  max-width:240px;
+}
+.info-box h3 { margin:0 0 .5rem; color:#ffab40; }
+.info-box p  { margin:0; font-size:.9rem; }
