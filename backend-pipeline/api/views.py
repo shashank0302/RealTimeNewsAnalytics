@@ -6,6 +6,8 @@ from .models import ProcessedData
 @api_view(['GET'])
 def country_news(request):
     country_code = request.GET.get('country', '').lower()
+    print(f"Country code received: {country_code}")
+    #country_code = 'us'
     limit = int(request.GET.get('limit', 10))  # Default to 10 articles
     
     articles = ProcessedData.objects.filter(country=country_code)\

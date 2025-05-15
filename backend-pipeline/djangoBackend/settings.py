@@ -13,13 +13,16 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 
 # Assuming your .env file is in the same directory as your manage.py
-load_dotenv()  # This will load variables from your project's root .env file
+#load_dotenv()  # This will load variables from your project's root .env file
 
-GNEWS_API_KEY = os.getenv('GNEWS_IO_KEY')
-NEWSAPI_KEY = os.getenv('NEWSAPI_IO_KEY')
+# GNEWS_API_KEY = os.getenv('GNEWS_IO_KEY')
+# NEWSAPI_KEY = os.getenv('NEWSAPI_IO_KEY')
+GNEWS_IO_KEY='a7b501c964b0ac3f412cedabf6d035cc'
+NEWSAPI_IO_KEY='tQEhUNGhJmIMvqwqPxz5CmT2QYXNu6svPr7fO0fj'
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -49,6 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'api',
     'rest_framework',
+    'django_celery_beat', # Add Celery Beat for scheduling
 ]
 
 MIDDLEWARE = [
@@ -62,9 +66,31 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 ]
 
+# Internationalization settings
+LANGUAGE_CODE = 'en-us'
+TIME_ZONE = 'UTC'
+USE_I18N = True
+USE_TZ = True
+
+# Redis Configuration
+REDIS_HOST = os.environ.get('REDIS_HOST', 'localhost')
+REDIS_PORT = os.environ.get('REDIS_PORT', '6379')
+
+# Celery Configuration
+CELERY_BROKER_URL = f'redis://{REDIS_HOST}:{REDIS_PORT}/0'
+CELERY_RESULT_BACKEND = f'redis://{REDIS_HOST}:{REDIS_PORT}/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = TIME_ZONE
+
+# CORS settings - allow frontend to connect
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  # React frontend URL during development
+    "http://localhost:3000",  # React frontend
+    "http://frontend:3000",   # Docker service name
 ]
+
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'djangoBackend.urls'
 
@@ -93,11 +119,11 @@ WSGI_APPLICATION = 'djangoBackend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'atlasnow_db',
-        'USER': 'atlas_user',
-        'PASSWORD': 'atlas123',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': os.environ.get('POSTGRES_DB', 'postgres'),
+        'USER': os.environ.get('POSTGRES_USER', 'postgres'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'postgres'),
+        'HOST': os.environ.get('POSTGRES_HOST', 'db'),
+        'PORT': os.environ.get('POSTGRES_PORT', '5432'),
     }
 }
 
@@ -119,18 +145,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
-
-# Internationalization
-# https://docs.djangoproject.com/en/5.1/topics/i18n/
-
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
-USE_I18N = True
-
-USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)

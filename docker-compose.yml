@@ -1,0 +1,104 @@
+services:
+  # Frontend React Application
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+    command: npm start
+    depends_on:
+      - backend
+
+  # Backend Django Application
+  backend:
+    build: ./backend-pipeline
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend-pipeline:/app
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres
+    depends_on:
+      - redis
+      - db
+
+  # PostgreSQL Database
+  db:
+    image: postgres:14
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
+    ports:
+      - "5432:5432"
+  
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - "2200:80"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@example.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    depends_on:
+      - db
+
+  # Redis
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+
+  # Celery Worker
+  celery_worker:
+    build: ./backend-pipeline
+    volumes:
+      - ./backend-pipeline:/app
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres
+    depends_on:
+      - redis
+      - db
+    command: celery -A djangoBackend worker -l info
+
+  # Celery Beat for Scheduled Tasks
+  celery_beat:
+    build: ./backend-pipeline
+    volumes:
+      - ./backend-pipeline:/app
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres
+    depends_on:
+      - redis
+      - db
+    command: celery -A djangoBackend beat -l info
+
+  # Flower for monitoring Celery
+  flower:
+    build: ./backend-pipeline
+    ports:
+      - "5555:5555"
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres
+    depends_on:
+      - redis
+      - celery_worker
+    command: celery -A djangoBackend flower --port=5555
+
+volumes:
+  postgres_data: 
