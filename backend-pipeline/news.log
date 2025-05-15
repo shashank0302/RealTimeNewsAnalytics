@@ -9252,3 +9252,7 @@ Fetched and stored 1249 new articles
 Processed 201 articles
 Deleted 1249 raw data records
 Watching for file changes with StatReloader
+"GET /api/news/country/?country=us HTTP/1.1" 200 10095
+"GET /api/news/country/?country=in HTTP/1.1" 200 10487
+"GET /api/news/country/?country=jp HTTP/1.1" 200 4362
+"GET /api/news/country/?country=us HTTP/1.1" 200 10095
