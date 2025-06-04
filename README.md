@@ -37,3 +37,14 @@ This launches the backend at `http://localhost:8000` and the frontend at `http:/
   ```
 
 For additional Docker notes see `DOCKER_README.md`.
+
+## Environment Variables
+
+Copy `.env.example` to `.env` and provide your API keys before running the
+application. Important variables include:
+
+- `REDDIT_CLIENT_ID` and `REDDIT_CLIENT_SECRET` – Reddit credentials
+- `REDDIT_USER_AGENT` – optional user agent for Reddit API requests
+- `TWITTER_API_KEY`, `TWITTER_API_SECRET` and `TWITTER_BEARER_TOKEN`
+- `GNEWS_IO_KEY` and `NEWSAPI_IO_KEY`
+- Standard Django settings such as `SECRET_KEY`, database and Redis options
