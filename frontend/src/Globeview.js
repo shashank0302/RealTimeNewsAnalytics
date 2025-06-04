@@ -157,7 +157,7 @@ function GlobeView() {
 
   // Fetch world data once on mount
   useEffect(() => {
-    fetch("https://unpkg.com/world-atlas@2/countries-110m.json")
+    fetch("/countries-110m.json")
       .then(res => res.json())
       .then(topology => {
         const geojson = topojson.feature(
