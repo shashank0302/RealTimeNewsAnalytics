@@ -18,10 +18,9 @@ import os
 # Assuming your .env file is in the same directory as your manage.py
 #load_dotenv()  # This will load variables from your project's root .env file
 
-# GNEWS_API_KEY = os.getenv('GNEWS_IO_KEY')
-# NEWSAPI_KEY = os.getenv('NEWSAPI_IO_KEY')
-GNEWS_IO_KEY='a7b501c964b0ac3f412cedabf6d035cc'
-NEWSAPI_IO_KEY='tQEhUNGhJmIMvqwqPxz5CmT2QYXNu6svPr7fO0fj'
+# Load API keys from environment variables
+GNEWS_IO_KEY = os.environ.get('GNEWS_IO_KEY')
+NEWSAPI_IO_KEY = os.environ.get('NEWSAPI_IO_KEY')
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -33,7 +32,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-fm7io5^0k6$q=f@4)457yw7(q$(1c38i6i512s2@xm#7#=k9mq'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True

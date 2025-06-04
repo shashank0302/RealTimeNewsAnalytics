@@ -1,9 +1,10 @@
+import os
 import praw
 
-# Your Reddit API credentials
-CLIENT_ID = "QtpJhmymZH1H4k-c3nbFYQ"
-CLIENT_SECRET = "IIJc1uQbf_mGyAL_fgzclcYPljFuAQ"
-USER_AGENT = "buzznet/1.0"
+# Load Reddit API credentials from environment variables
+CLIENT_ID = os.environ.get("REDDIT_CLIENT_ID")
+CLIENT_SECRET = os.environ.get("REDDIT_CLIENT_SECRET")
+USER_AGENT = os.environ.get("REDDIT_USER_AGENT", "buzznet/1.0")
 
 # Initialize the Reddit API client
 reddit = praw.Reddit(

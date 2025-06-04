@@ -1,9 +1,10 @@
+import os
 import tweepy
 
-# Your Twitter API credentials
-API_KEY = "qeZKAmaXsOefzgDF0PEdbxaJj"
-API_SECRET = "wKpHbTEDMUiTDwp1lpX7efVDGEfueNZk3AABrwDMXqbXk3hCOE"
-BEARER_TOKEN = "AAAAAAAAAAAAAAAAAAAAAMfOkAEAAAAAadjUpvtiNd3xES3xgukYR%2Bu3Pr0%3DECLXvPyPmDTKK1tcX7UwETQrHhGztyMKyuF496fRT9VjffpTMU"
+# Load Twitter API credentials from environment variables
+API_KEY = os.environ.get("TWITTER_API_KEY")
+API_SECRET = os.environ.get("TWITTER_API_SECRET")
+BEARER_TOKEN = os.environ.get("TWITTER_BEARER_TOKEN")
 
 # Authenticate
 client = tweepy.Client(bearer_token=BEARER_TOKEN)
