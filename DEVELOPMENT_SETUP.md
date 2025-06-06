@@ -2,6 +2,26 @@
 
 ## Quick Start for Teammates
 
+### 🎯 For Analytics Development (Recommended)
+
+If you're working on analytics features (sentiment, summarization), use the optimized workflow:
+
+```bash
+# Start only what you need (3x faster!)
+docker-compose --profile analytics up -d
+
+# Or use the helper script:
+./dev.sh analytics
+```
+
+This starts only:
+- ✅ Django Backend (with hot reload)
+- ✅ PostgreSQL Database
+- ✅ Redis (for caching)
+- ❌ Skips Frontend, Celery, Flower (not needed for analytics)
+
+See `ANALYTICS_DEVELOPMENT_GUIDE.md` for detailed instructions.
+
 ### Prerequisites
 - **Docker Desktop** ([Download here](https://www.docker.com/products/docker-desktop/)) - REQUIRED
 - Git

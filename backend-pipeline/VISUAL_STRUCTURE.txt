@@ -1,0 +1,49 @@
+📦 backend-pipeline/
+│
+├── 📁 djangoBackend/           # ⚙️ Django Configuration
+│   ├── 📄 settings.py          # Main settings
+│   ├── 📄 urls.py              # URL routing  
+│   ├── 📄 celery.py            # Celery config
+│   └── 📄 wsgi.py              # WSGI server
+│
+├── 📁 api/                     # 💡 Your Main Workspace
+│   ├── 📄 models.py            # Database models
+│   ├── 📄 views.py             # API endpoints
+│   ├── 📄 serializers.py       # Data serialization
+│   ├── 📄 tasks.py             # Background tasks
+│   ├── 📄 urls.py              # API routes
+│   │
+│   ├── 📁 analytics/           # 🧠 Analytics Modules (NEW!)
+│   │   ├── 📄 __init__.py      # Package init
+│   │   ├── 📄 sentiment.py     # Sentiment analysis
+│   │   └── 📄 summarizer.py    # Text summarization
+│   │
+│   ├── 📄 ingestion.py         # Data ingestion
+│   ├── 📄 processing.py        # Data processing
+│   └── 📁 migrations/          # Database migrations
+│
+├── 📁 BackendTests/            # 🧪 Test suite
+├── 📄 manage.py                # Django CLI
+├── 📄 requirements.txt         # Python packages
+├── 📄 Dockerfile               # Container config
+└── 📄 run.sh                   # Startup script
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 ANALYTICS DEVELOPER FOCUS AREAS:
+
+1️⃣ PRIMARY WORKSPACE:
+   📁 api/analytics/ ← Add your new modules here
+   📄 api/models.py  ← Add new fields
+   📄 api/tasks.py   ← Integrate analytics
+
+2️⃣ WHEN ADDING FEATURES:
+   • Create new file in api/analytics/
+   • Import in api/tasks.py
+   • Update api/models.py if needed
+   • Add endpoint in api/views.py
+
+3️⃣ DON'T TOUCH:
+   ❌ djangoBackend/ (infrastructure)
+   ❌ Dockerfile (unless adding packages)
+   ❌ celery.py (background task config) 

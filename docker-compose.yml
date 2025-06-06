@@ -1,6 +1,7 @@
 services:
   # Frontend React Application
   frontend:
+    profiles: ["full", "frontend"]
     build: ./frontend
     ports:
       - "3000:3000"
@@ -17,6 +18,7 @@ services:
 
   # Backend Django Application
   backend:
+    profiles: ["full", "backend", "analytics"]
     build: ./backend-pipeline
     ports:
       - "8000:8000"
@@ -29,12 +31,17 @@ services:
       - SECRET_KEY=django-insecure-development-key-change-in-production-12345
       - GNEWS_IO_KEY=${GNEWS_IO_KEY:-your-gnews-api-key}
       - NEWSAPI_IO_KEY=${NEWSAPI_IO_KEY:-your-newsapi-key}
+      - DJANGO_SETTINGS_MODULE=djangoBackend.settings
+      - PYTHONUNBUFFERED=1
+    # For development, override command to use hot reload
+    command: python manage.py runserver 0.0.0.0:8000
     depends_on:
       - redis
       - db
 
   # PostgreSQL Database
   db:
+    profiles: ["full", "backend", "analytics", "infrastructure"]
     image: postgres:14
     volumes:
       - postgres_data:/var/lib/postgresql/data/
@@ -46,6 +53,7 @@ services:
       - "5432:5432"
   
   pgadmin:
+    profiles: ["full", "infrastructure", "tools"]
     image: dpage/pgadmin4
     ports:
       - "2200:80"
@@ -57,12 +65,14 @@ services:
 
   # Redis
   redis:
+    profiles: ["full", "backend", "analytics", "infrastructure", "celery"]
     image: redis:latest
     ports:
       - "6379:6379"
 
   # Celery Worker
   celery_worker:
+    profiles: ["full", "celery", "infrastructure"]
     build: ./backend-pipeline
     volumes:
       - ./backend-pipeline:/app
@@ -80,6 +90,7 @@ services:
 
   # Celery Beat for Scheduled Tasks
   celery_beat:
+    profiles: ["full", "celery", "infrastructure"]
     build: ./backend-pipeline
     volumes:
       - ./backend-pipeline:/app
@@ -97,6 +108,7 @@ services:
 
   # Flower for monitoring Celery
   flower:
+    profiles: ["full", "celery", "tools"]
     build: ./backend-pipeline
     ports:
       - "5555:5555"
