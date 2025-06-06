@@ -26,6 +26,9 @@ services:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres
+      - SECRET_KEY=django-insecure-development-key-change-in-production-12345
+      - GNEWS_IO_KEY=${GNEWS_IO_KEY:-your-gnews-api-key}
+      - NEWSAPI_IO_KEY=${NEWSAPI_IO_KEY:-your-newsapi-key}
     depends_on:
       - redis
       - db
@@ -67,6 +70,9 @@ services:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres
+      - SECRET_KEY=django-insecure-development-key-change-in-production-12345
+      - GNEWS_IO_KEY=${GNEWS_IO_KEY:-your-gnews-api-key}
+      - NEWSAPI_IO_KEY=${NEWSAPI_IO_KEY:-your-newsapi-key}
     depends_on:
       - redis
       - db
@@ -81,6 +87,9 @@ services:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres
+      - SECRET_KEY=django-insecure-development-key-change-in-production-12345
+      - GNEWS_IO_KEY=${GNEWS_IO_KEY:-your-gnews-api-key}
+      - NEWSAPI_IO_KEY=${NEWSAPI_IO_KEY:-your-newsapi-key}
     depends_on:
       - redis
       - db
@@ -95,6 +104,9 @@ services:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres
+      - SECRET_KEY=django-insecure-development-key-change-in-production-12345
+      - GNEWS_IO_KEY=${GNEWS_IO_KEY:-your-gnews-api-key}
+      - NEWSAPI_IO_KEY=${NEWSAPI_IO_KEY:-your-newsapi-key}
     depends_on:
       - redis
       - celery_worker
